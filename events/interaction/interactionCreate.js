@@ -35,7 +35,7 @@ export async function execute(interaction) {
     }
 
     if (
-        command.data.category === 'dev' &&
+        command.data.category.includes('dev') &&
         !process.env.DEV_IDS.split(',').includes(interaction.user.id)
     ) {
         return interaction.reply({
@@ -72,7 +72,11 @@ export async function execute(interaction) {
     }
 
     try {
-        await command.execute(interaction, queue);
+        if (command.data.category.includes('music')) {
+            await command.execute(interaction, queue);
+        } else {
+            await command.execute(interaction);
+        }
     } catch (err) {
         console.error(err);
     }

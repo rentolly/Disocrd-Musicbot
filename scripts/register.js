@@ -16,7 +16,7 @@ const { devCommands, otherCommands } = client.commands.reduce(
     (acc, { data }) => {
         const { command, category } = data;
 
-        if (category === 'dev') {
+        if (category.includes('dev')) {
             acc.devCommands.push(command.toJSON());
         } else {
             acc.otherCommands.push(command.toJSON());

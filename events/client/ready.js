@@ -16,8 +16,8 @@ export async function execute(client) {
 
     await loadMessageCommands(client);
 
-    if(!process.env.OPEN_WEATHER_DATA) await quakeTimer(client);
-    
+    if (!process.env.OPEN_WEATHER_DATA) await quakeTimer(client);
+
     client.user.setActivity(`/help`);
 
     console.log(`Log in as ${client.user.username}!`);

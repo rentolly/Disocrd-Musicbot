@@ -1,9 +1,9 @@
 import 'dotenv/config';
 import { Client, GatewayIntentBits, Collection } from 'discord.js';
-import { YoutubeiExtractor } from 'discord-player-youtubei';
 import { Player } from 'discord-player';
 import { loadEvents } from './handlers/events.js';
 import { QuickDB } from 'quick.db';
+import { DefaultExtractors } from '@discord-player/extractor';
 
 class ExtendedClient extends Client {
     messageCommands = new Collection();
@@ -26,14 +26,21 @@ const client = new ExtendedClient({
     ],
 });
 
-const player = new Player(client);
-
-await player.extractors.register(YoutubeiExtractor, {
-    streamOptions: {
+const player = new Player(client, {
+    ytdlOptions: {
+        quality: 'highestaudio',
         highWaterMark: 1 << 25,
-        quality: 'best',
-        useClient: 'ANDROID',
     },
+});
+
+await player.extractors.loadMulti(DefaultExtractors);
+
+player.events.on('playerError', (queue, error) => {
+    console.log('Player Error:', error);
+});
+
+player.events.on('error', (queue, error) => {
+    console.log('General Error:', error);
 });
 
 await loadEvents(client);

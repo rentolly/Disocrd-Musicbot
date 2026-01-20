@@ -31,7 +31,7 @@ export const data = {
 };
 
 export async function execute(interaction) {
-    if(!process.env.OPEN_WEATHER_DATA) {
+    if (!process.env.OPEN_WEATHER_DATA) {
         return await interaction.reply({
             embeds: [ErrorEmbed(`機器人未啟用地震通知功能`)],
             ephemeral: true,

@@ -1,4 +1,4 @@
-import { createCanvas, loadImage } from 'canvas';
+import { createCanvas, loadImage } from '@napi-rs/canvas';
 import { AttachmentBuilder, Events } from 'discord.js';
 import path from 'path';
 
